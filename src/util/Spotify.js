@@ -1,3 +1,5 @@
+const clientID = ''
+
 let accessToken;
 
 const Spotify = {
@@ -7,8 +9,16 @@ const Spotify = {
         }
 
         // check for access token match
-        const accessToken = window.location.href.match(/access_token=([^&]*)/);
-        const expiredInMatch = window.location.href.match(/expires_in=([^&]*)/)
+        const accessTokenMatch = window.location.href.match(/access_token=([^&]*)/);
+        const expiresInMatch = window.location.href.match(/expires_in=([^&]*)/);
+
+        if (accessTokenMatch && expiresInMatch) {
+            accessToken = accessTokenMatch[1];
+            const expiresIn = Number(expiresInMatch[1]);
+            //Clear parameters, allowing us to grab a new access token when expired
+            window.setTimeout(() => accessToken = '', expiresIn * 1000);
+            window.history.pushState('Access Token', null, '/');
+        }
     }
 }
 
