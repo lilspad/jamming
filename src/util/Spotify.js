@@ -1,11 +1,12 @@
 const clientID = '7f42b24f234c4e5db35680ec7ace85bc';
-const redirectURI = 'http://localhost:3000';
-let accessToken;
+const redirectURI = 'http://lils-jamming.surge.sh';
+
+let accessToken = '';
 
 const Spotify = {
     getAccessToken() {
         if(accessToken) {
-            return;
+            return accessToken;
         }
 
         // check for access token match
